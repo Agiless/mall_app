@@ -1,3 +1,3 @@
 export default function Page(){
-    return(<><p>consumer</p></>)
+    return(<><p>seller</p></>)
 }

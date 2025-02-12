@@ -1,8 +1,12 @@
+import {Link} from "@mui/material";
+
 export default function App(){
   return(
   <>
     <div>
-      <button>Log in</button>
+      <Link href = "./login/seller" >Log in</Link>
+      <Link href = "./login/customer" >Log iin</Link>
     </div>
-  </>)
+  </>
+  );
 }
