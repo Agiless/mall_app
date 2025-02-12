@@ -1,6 +1,8 @@
 export default function App(){
   return(
   <>
-    Page
+    <div>
+      <button>Log in</button>
+    </div>
   </>)
 }
