@@ -1,59 +1,85 @@
-import Head from 'next/head';
-import { useState } from 'react';
+"use client";
+import { Link } from "@mui/material";
+import { useState } from "react";
 
-export default function ChatBot() {
-  const [messages, setMessages] = useState([
-    { sender: 'bot', text: 'Hello! How can I assist you today?' }
-  ]);
-  const [input, setInput] = useState('');
-
-  const sendMessage = () => {
-    if (!input.trim()) return;
-    const newMessages = [...messages, { sender: 'user', text: input }];
-    setMessages(newMessages);
-    setInput('');
-    
-    // Simulating bot response
-    setTimeout(() => {
-      setMessages([...newMessages, { sender: 'bot', text: 'Thank you for your message! Our assistant will respond soon.' }]);
-    }, 1000);
-  };
-
+export default function Page() {
+  const [lnk1,setLnk1] = useState(false);
+  const [lnk2,setLnk2] = useState(false);
   return (
-    <div className="h-screen flex flex-col bg-gray-100">
-      <Head>
-        <title>Smart Mall Bot - Chat</title>
-        <meta name="description" content="Chat with our AI-powered mall assistant." />
-      </Head>
-      
-      {/* Chat Header */}
-      <div className="bg-orange-500 text-white text-center py-4 text-xl font-bold">Smart Mall ChatBot</div>
-      
-      {/* Chat Window */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {messages.map((msg, index) => (
-          <div key={index} className={`p-3 rounded-lg w-fit max-w-xs ${msg.sender === 'bot' ? 'bg-blue-500 text-white self-start' : 'bg-gray-300 text-black self-end'}`}>
-            {msg.text}
-          </div>
-        ))}
-      </div>
-      
-      {/* Chat Input */}
-      <div className="flex p-4 bg-white shadow-md">
-        <input 
-          type="text" 
-          value={input} 
-          onChange={(e) => setInput(e.target.value)} 
-          className="flex-1 p-2 border rounded-l-lg" 
-          placeholder="Type your message..." 
-        />
-        <button 
-          onClick={sendMessage} 
-          className="bg-orange-500 text-white px-4 py-2 rounded-r-lg hover:bg-orange-600"
-        >
-          Send
-        </button>
-      </div>
+    <div className="h-full">
+
+      {/* Navbar */}
+      <nav className="bg-gray-800 shadow-md py-4 px-6 flex justify-between items-center">
+        <div className="text-2xl font-bold text-white">Smart Mall</div>
+        <div className="space-x-6">
+          <Link
+            href={lnk1 ? "/login/seller" : undefined}
+            onClick = {() => setLnk1(!lnk1)}
+            className="!no-underline !text-gray-300 !hover:text-white"
+          >
+            Support
+          </Link>
+          <Link
+            href={lnk2 ? "/login/customer" : undefined}
+            onClick = {() => setLnk2(!lnk2)}
+            className="!no-underline !text-white px-4 py-2 rounded-lg bg-orange-600 hover:bg-orange-500"
+          >
+            Login
+          </Link>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="text-center py-20 bg-[url('/mall.webp')] bg-cover bg-center m-[2vw] bg-gray-800 text-white">
+        <h1 className="text-4xl font-bold text-white">
+          Transform Your Shopping Experience
+        </h1>
+        <p className="text-lg mt-4 text-gray-300">
+          Smart Mall Bot provides real-time assistance, navigation, and interactive shopping features.
+        </p>
+      </section>
+
+      {/* Features Section */}
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 py-20 px-10">
+        <div className=" shadow-md p-6 text-center rounded-lg bg-gray-700 text-white">
+          <h2 className="text-2xl font-semibold">Chatbot Assistance</h2>
+          <p className="text-gray-300 mt-2">
+            Locate stores, find products, and get promotions in real-time.
+          </p>
+        </div>
+        <div className=" shadow-md p-6 text-center rounded-lg bg-gray-700 text-white">
+          <h2 className="text-2xl font-semibold">3D Mapping & Navigation</h2>
+          <p className="text-gray-300 mt-2">
+            Navigate efficiently with the shortest path guidance.
+          </p>
+        </div>
+        <div className=" shadow-md p-6 text-center rounded-lg bg-gray-700 text-white">
+          <h2 className="text-2xl font-semibold">Online Parking Assistance</h2>
+          <p className="text-gray-300 mt-2">
+            Find available parking spots quickly and easily.
+          </p>
+        </div>
+        <div className=" shadow-md p-6 text-center rounded-lg bg-gray-700 text-white">
+          <h2 className="text-2xl font-semibold">SOS Emergency Alerts</h2>
+          <p className="text-gray-300 mt-2">
+            Help in cases of lost items or missing children.
+          </p>
+        </div>
+        <div className=" shadow-md p-6 text-center rounded-lg bg-gray-700 text-white">
+          <h2 className="text-2xl font-semibold">Stock Clearance Ads</h2>
+          <p className="text-gray-300 mt-2">
+            Boost slow-moving stock with targeted promotions.
+          </p>
+        </div>
+        <div className=" shadow-md p-6 text-center rounded-lg bg-gray-700 text-white">
+          <h2 className="text-2xl font-semibold">Engagement Rewards</h2>
+          <p className="text-gray-300 mt-2">
+            Earn tokens for shopping and interactions.
+          </p>
+        </div>
+      </section>
+
     </div>
   );
 }
+
