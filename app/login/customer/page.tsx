@@ -2,18 +2,29 @@
 import { useState, useEffect } from "react";
 
 export default function Login() {
-  const ads = [
-    "\ud83c\udfea Shop 101 - \ud83d\udcf1 Smartphones at 40% OFF – Grab the best deals now!",
-    "\ud83c\udfea Shop 205 - \ud83d\udc57 Trendy Dresses – Buy 2, Get 1 Free!",
-    "\ud83c\udfea Shop 312 - \ud83c\udfe9 Furniture Sale – Flat 35% OFF on Sofas & Beds!",
-    "\ud83c\udfea Shop 421 - \u231a Luxury Watches – Up to 50% OFF! Limited Time Only!",
-    "\ud83c\udfea Shop 527 - \ud83c\udfcb\ufe0f Sports Gear – Special Clearance Sale!",
-    "\ud83c\udfea Shop 638 - \ud83c\udfa7 Headphones & Speakers – Flat 45% OFF!",
-    "\ud83c\udfea Shop 742 - \ud83d\udd76\ufe0f Branded Sunglasses – Buy 1, Get 1 at 50% OFF!",
-    "\ud83c\udfea Shop 859 - \ud83d\udc5c Designer Bags – Flat 30% OFF This Weekend!",
-    "\ud83c\udfea Shop 923 - \ud83c\udf7d\ufe0f Kitchen Essentials – Mega Discount Bonanza!",
-    "\ud83c\udfea Shop 1054 - \ud83c\udfae Gaming Zone – Up to 60% OFF on Consoles & Accessories!",
-  ];
+    const ads = [
+      "🏬 Apple Store - 📱 iPhones at 40% OFF – Grab the best deals now!",
+      "🏬 Zara - 👗 Trendy Dresses – Buy 2, Get 1 Free!",
+      "🏬 IKEA - 🛋️ Furniture Sale – Flat 35% OFF on Sofas & Beds!",
+      "🏬 Rolex - ⌚ Luxury Watches – Up to 50% OFF! Limited Time Only!",
+      "🏬 Decathlon - 🏋️ Sports Gear – Special Clearance Sale!",
+      "🏬 Bose - 🎧 Headphones & Speakers – Flat 45% OFF!",
+      "🏬 Ray-Ban - 🕶️ Branded Sunglasses – Buy 1, Get 1 at 50% OFF!",
+      "🏬 Louis Vuitton - 👜 Designer Bags – Flat 30% OFF This Weekend!",
+      "🏬 Tupperware - 🍽️ Kitchen Essentials – Mega Discount Bonanza!",
+      "🏬 PlayStation Store - 🎮 Gaming Zone – Up to 60% OFF on Consoles & Accessories!",
+      "🏬 Samsung - 📱 Galaxy Phones – Exchange Offer Available!",
+      "🏬 Adidas - 👟 Sports Shoes – Flat 50% OFF This Week!",
+      "🏬 Nike - 🏃 Performance Wear – Buy 2, Get 20% OFF!",
+      "🏬 Levi's - 👖 Denim Collection – Special Seasonal Discount!",
+      "🏬 Sephora - 💄 Beauty & Skincare – Buy 1, Get 1 Free!",
+      "🏬 Puma - 🎽 Activewear – Limited Edition Releases Available!",
+      "🏬 Gucci - 👜 Luxury Fashion – Flat 25% OFF on Select Items!",
+      "🏬 Croma - 💻 Laptops & Gadgets – Festive Offers Inside!",
+      "🏬 Starbucks - ☕ Buy One, Get One Free on Frappuccinos!",
+      "🏬 Hamleys - 🧸 Toy Wonderland – Huge Discounts for Kids!"
+    ];
+
 
   const [currentAd, setCurrentAd] = useState(0);
   const [showAd, setShowAd] = useState(true);
