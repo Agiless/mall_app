@@ -1,5 +1,9 @@
 "use client";
 import { useState } from 'react';
+<<<<<<< HEAD
+=======
+import axios from "axios"; // Install first: npm install axios
+>>>>>>> 484040782914bf2b6f80aa0ce2292aa665585583
 
 const SellerForm = () => {
   const [username, setUsername] = useState('');
@@ -21,6 +25,18 @@ const SellerForm = () => {
     });
   };
 
+<<<<<<< HEAD
+=======
+  const clicked = () => {
+    
+
+    axios.post("http://127.0.0.1:8000/post-json/", { name: "John" })
+      .then(response => console.log(response.data))
+      .catch(error => console.error("Error:", error));
+
+  }
+
+>>>>>>> 484040782914bf2b6f80aa0ce2292aa665585583
   return (
     <div 
       className="flex items-center justify-center min-h-screen bg-gray-100"
@@ -102,6 +118,10 @@ const SellerForm = () => {
           <button
             type="submit"
             className="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition duration-200"
+<<<<<<< HEAD
+=======
+            onClick = {() => clicked()}
+>>>>>>> 484040782914bf2b6f80aa0ce2292aa665585583
           >
             Submit
           </button>
