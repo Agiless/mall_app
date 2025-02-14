@@ -1,5 +1,5 @@
 "use client";
-import * as React from 'react';
+{/*import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -20,10 +20,10 @@ import Typography from '@mui/material/Typography';
 const drawerWidth = 240;
 
 interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * Remove this when copying and pasting into your project.
-   */
+  
+    Injected by the documentation to work in an iframe.
+   Remove this when copying and pasting into your project.
+   
   window?: () => Window;
 }
 
@@ -103,7 +103,7 @@ export default function ResponsiveDrawer(props: Props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Responsive drawer
+            Mall Bot
           </Typography>
         </Toolbar>
       </AppBar>
@@ -112,7 +112,7 @@ export default function ResponsiveDrawer(props: Props) {
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+        
         <Drawer
           container={container}
           variant="temporary"
@@ -172,6 +172,109 @@ export default function ResponsiveDrawer(props: Props) {
           eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
           posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
+      </Box>
+    </Box>
+  );
+}
+*/}
+
+
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import MenuIcon from '@mui/icons-material/Menu';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import SendIcon from '@mui/icons-material/Send';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+
+const drawerWidth = 240;
+
+interface Props {
+  window?: () => Window;
+}
+
+export default function ChatBot(props: Props) {
+  const { window } = props;
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [messages, setMessages] = React.useState([
+    { sender: 'bot', text: 'Hello! How can I assist you today?' }
+  ]);
+  const [input, setInput] = React.useState('');
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const sendMessage = () => {
+    if (!input.trim()) return;
+    setMessages([...messages, { sender: 'user', text: input }]);
+    setInput('');
+  };
+
+  const drawer = (
+    <div>
+      <Toolbar />
+      <Divider />
+      <List>
+        {['history.....', 'history.......', 'history.........'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
+
+  const container = window !== undefined ? () => window().document.body : undefined;
+
+  return (
+    <Box sx={{ display: 'flex', height: '100vh' }}>
+      <CssBaseline />
+      <AppBar position="fixed" sx={{ width: { sm: `calc(100% - ${drawerWidth}px)` }, ml: { sm: `${drawerWidth}px` } }}>
+        <Toolbar>
+          <IconButton color="inherit" edge="start" onClick={handleDrawerToggle} sx={{ mr: 2, display: { sm: 'none' } }}>
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap>ChatBot</Typography>
+        </Toolbar>
+      </AppBar>
+      <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}>
+        <Drawer container={container} variant="temporary" open={mobileOpen} onClose={handleDrawerToggle} ModalProps={{ keepMounted: true }}
+          sx={{ display: { xs: 'block', sm: 'none' }, '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth } }}>
+          {drawer}
+        </Drawer>
+        <Drawer variant="permanent" sx={{ display: { xs: 'none', sm: 'block' }, '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth } }} open>
+          {drawer}
+        </Drawer>
+      </Box>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` }, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <Toolbar />
+        <Box sx={{ flexGrow: 1, overflowY: 'auto', p: 2 }}>
+          {messages.map((msg, index) => (
+            <Typography className={ msg.sender === 'user' ?  'absolute right-0' : 'absolute left-0'} key={index} sx={{ my: 3, mt: 4, p: 1, bgcolor: msg.sender === 'user' ? 'primary.light' : 'grey.300', borderRadius: 1, display: 'inline-block' }}>
+              {msg.text}
+            </Typography>
+          ))}
+        </Box>
+        <Box sx={{ display: 'flex', p: 2, borderTop: '1px solid grey' }}>
+          <TextField fullWidth variant="outlined" value={input} onChange={(e) => setInput(e.target.value)} placeholder="Type your message..." />
+          <Button onClick={sendMessage} sx={{ ml: 1 }} variant="contained">
+            <SendIcon />
+          </Button>
+        </Box>
       </Box>
     </Box>
   );

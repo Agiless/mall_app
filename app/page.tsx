@@ -5,6 +5,8 @@ import { useState } from "react";
 export default function Page() {
   const [lnk1,setLnk1] = useState(false);
   const [lnk2,setLnk2] = useState(false);
+  const[lnk3,setLnk3] = useState(false);
+  const[lnk4,setLnk4] = useState(false);
   return (
     <div className="h-full">
 
@@ -15,14 +17,14 @@ export default function Page() {
           <Link
             href={lnk1 ? "/login/seller" : undefined}
             onClick = {() => setLnk1(!lnk1)}
-            className="!no-underline !text-gray-300 !hover:text-white"
+            className="!no-underline !text-gray-300 !hover:text-white cursor-pointer"
           >
             Support
           </Link>
           <Link
             href={lnk2 ? "/login/customer" : undefined}
             onClick = {() => setLnk2(!lnk2)}
-            className="!no-underline !text-white px-4 py-2 rounded-lg bg-orange-600 hover:bg-orange-500"
+            className="!no-underline !text-white px-4 py-2 rounded-lg bg-orange-600 hover:bg-orange-500 cursor-pointer"
           >
             Login
           </Link>
@@ -40,18 +42,27 @@ export default function Page() {
       </section>
 
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 py-20 px-10">
-        <div className=" shadow-md p-6 text-center rounded-lg bg-gray-700 text-white">
-          <h2 className="text-2xl font-semibold">Chatbot Assistance</h2>
-          <p className="text-gray-300 mt-2">
+     <Link href={lnk3 ? "/components/chatbot" : undefined} 
+                onClick={() => setLnk3(!lnk3)} 
+                className="!no-underline">
+       <div className="shadow-md p-6 text-center rounded-lg bg-gray-700 text-white cursor-pointer">
+        <h2 className="text-2xl font-semibold">
+              Chatbot Assistance    </h2>
+         <p className="text-gray-300 mt-2">
             Locate stores, find products, and get promotions in real-time.
-          </p>
-        </div>
-        <div className=" shadow-md p-6 text-center rounded-lg bg-gray-700 text-white">
+         </p>
+       </div>
+     </Link>
+        <Link href={lnk4 ? "/components/3d_view" : undefined}
+                onClick={() => setLnk4(!lnk4)}
+                className="!no-underline">
+        <div className=" shadow-md p-6 text-center rounded-lg bg-gray-700 text-white cursor-pointer">
           <h2 className="text-2xl font-semibold">3D Mapping & Navigation</h2>
           <p className="text-gray-300 mt-2">
             Navigate efficiently with the shortest path guidance.
           </p>
         </div>
+        </Link>
         <div className=" shadow-md p-6 text-center rounded-lg bg-gray-700 text-white">
           <h2 className="text-2xl font-semibold">Online Parking Assistance</h2>
           <p className="text-gray-300 mt-2">
