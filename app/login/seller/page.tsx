@@ -25,7 +25,7 @@ const SellerForm = () => {
   const clicked = () => {
     
 
-    axios.post("http://127.0.0.1:8000/post-json/", { name: "John" })
+    axios.post("http://127.0.0.1:8000/post-json/", { username : username, password : password, mobileNumber : mobileNumber, gstin : gstin, email : email, shopNumber : shopNumber})
       .then(response => console.log(response.data))
       .catch(error => console.error("Error:", error));
 
