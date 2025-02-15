@@ -1,8 +1,16 @@
 'use client';
 import { useState } from 'react';
 
+interface Store {
+  [key: string]: {
+    floor: number;
+    connections: string[];
+  };
+
+}
+
 const mallGraph = {
- "Nike": { floor: 0, connections: ["Puma", "Skechers", "Reebok"] },
+  "Nike": { floor: 0, connections: ["Puma", "Skechers", "Reebok"] },
   "Puma": { floor: 0, connections: ["Nike", "Reebok", "Staircase1", "Skechers"] },
   "Skechers": { floor: 0, connections: ["Nike", "Reebok", "Puma", "Kids Corner"] },
   "Reebok": { floor: 0, connections: ["Skechers", "Burger King"] },
@@ -50,12 +58,12 @@ const mallGraph = {
   "Snacks Counter" :{floor: 3, connections:["Fun Land","Elevator"]},
 
   // Combined connections between floors
-  "Staircase1": { floor: "multi", connections: ["Burger King", "Puma", "Reebok", "McDonald's", "Lifestyle", "Pantaloons", "KFC", "Anchor Store", "Atrium","KK Cinemas","Fun Land"] },
-  "Staircase2": { floor: "multi", connections: ["The Concourse", "Maintenance Area", "ZARA", "Starbucks", "Woodland", "Washroom", "US Polo", "Atrium","Fun Land","Book Tickets"] },
-  "Elevator": { floor: "multi", connections: ["Maintenance Area", "Display Area", "Woodland", "Gucci", "Cafe Noir", "US Polo", "Washroom", "Tanishq", "Titan","Book Tickets","Snack Counter"] }
+  "Staircase1": { floor: 1.5, connections: ["Burger King", "Puma", "Reebok", "McDonald's", "Lifestyle", "Pantaloons", "KFC", "Anchor Store", "Atrium","KK Cinemas","Fun Land"] },
+  "Staircase2": { floor: 2.2, connections: ["The Concourse", "Maintenance Area", "ZARA", "Starbucks", "Woodland", "Washroom", "US Polo", "Atrium","Fun Land","Book Tickets"] },
+  "Elevator": { floor: 2.1, connections: ["Maintenance Area", "Display Area", "Woodland", "Gucci", "Cafe Noir", "US Polo", "Washroom", "Tanishq", "Titan","Book Tickets","Snack Counter"] }
 };
 
-const findShortestPath = (graph, start, end) => {
+const findShortestPath = ({graph, start, end} : { graph:Store, start:string,end:string}) => {
   if (!graph[start] || !graph[end]) return [];
   
   const queue = [[start]];
@@ -63,15 +71,15 @@ const findShortestPath = (graph, start, end) => {
 
   while (queue.length > 0) {
     const path = queue.shift();
-    const node = path[path.length - 1];
+    const node = path ? path[path.length - 1] : undefined
 
     if (node === end) return path;
 
     if (!visited.has(node)) {
       visited.add(node);
-      for (const neighbor of (graph[node]?.connections || [])) {
+      for (const neighbor of (graph[node?node:""]?.connections || [])) {
         if (!visited.has(neighbor)) {
-          queue.push([...path, neighbor]);
+          queue.push([...(path? path :[]), neighbor]);
         }
       }
     }
@@ -80,13 +88,13 @@ const findShortestPath = (graph, start, end) => {
 };
 
 export default function MallPathFinder() {
-  const [start, setStart] = useState('');
-  const [end, setEnd] = useState('');
-  const [path, setPath] = useState([]);
+  const [start, setStart] = useState<string>("");
+  const [end, setEnd] = useState<string>("");
+  const [path, setPath] = useState<string[]>([]);
 
   const handleFindPath = () => {
-    const shortestPath = findShortestPath(mallGraph, start, end);
-    setPath(shortestPath);
+    const shortestPath = findShortestPath({graph:mallGraph, start:start, end:end});
+    setPath(shortestPath?shortestPath:[]);
   };
 
   return (
