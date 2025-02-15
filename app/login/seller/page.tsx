@@ -123,4 +123,3 @@ const SellerForm = () => {
 };
 
 export default SellerForm;
-
