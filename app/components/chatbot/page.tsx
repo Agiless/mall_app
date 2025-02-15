@@ -228,7 +228,7 @@ export default function ChatBot(props: Props) {
       <Toolbar />
       <Divider />
       <List>
-        {['history.....', 'history.......', 'history.........'].map((text, index) => (
+        {['history.....', 'history.......', 'history.........'].map((text) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemText primary={text} />
