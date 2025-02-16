@@ -17,6 +17,8 @@ import Typography from '@mui/material/Typography';
 import SendIcon from '@mui/icons-material/Send';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { ThemeProvider} from '@emotion/react';
+import { createTheme } from '@mui/material/styles';
 import axios from 'axios';
 
 const drawerWidth = 240;
@@ -24,6 +26,23 @@ const drawerWidth = 240;
 interface Props {
   window?: () => Window;
 }
+
+/*dark theme*/
+const darkTheme = createTheme({
+  palette:{
+    mode: "dark",
+    primary:{
+      main: "#90caf9",
+    },
+    background: {
+      default: "#121212",
+      paper: "#1e1e1e",
+    },
+    text: {
+      primary: "#ffffff",
+    },
+  },
+});
 
 export default function ChatBot(props: Props) {
   const { window } = props;
@@ -68,6 +87,7 @@ export default function ChatBot(props: Props) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
+    <ThemeProvider theme={darkTheme}>
     <Box sx={{ display: 'flex', height: '100vh' }}>
       <CssBaseline />
       <AppBar position="fixed" sx={{ width: { sm: `calc(100% - ${drawerWidth}px)` }, ml: { sm: `${drawerWidth}px` } }}>
@@ -106,5 +126,6 @@ export default function ChatBot(props: Props) {
         </Box>
       </Box>
     </Box>
+    </ThemeProvider>
   );
 }

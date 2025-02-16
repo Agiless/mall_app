@@ -66,8 +66,8 @@ const mallGraph = {
 const findShortestPath = ({graph, start, end} : { graph:Store, start:string,end:string}) => {
   if (!graph[start] || !graph[end]) return [];
   
-  const queue = [[start]];
-  const visited = new Set();
+  const queue: string[][] = [[start]];
+  const visited: Set<string> = new Set();
 
   while (queue.length > 0) {
     const path = queue.shift();
