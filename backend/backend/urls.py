@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import post_json_response
+from .views import post_json_response,reply
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('post-json/', post_json_response, name='post_json_response'),
+    path('chatbot/', reply, name='chatbot_reply'),
 ]
 

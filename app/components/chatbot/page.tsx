@@ -17,6 +17,7 @@ import Typography from '@mui/material/Typography';
 import SendIcon from '@mui/icons-material/Send';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import axios from 'axios';
 
 const drawerWidth = 240;
 
@@ -40,6 +41,12 @@ export default function ChatBot(props: Props) {
     if (!input.trim()) return;
     setMessages([...messages, { sender: 'user', text: input }]);
     setInput('');
+    axios.post("http://127.0.0.1:8000/chatbot/", {msg:input})
+      .then(response => {
+        console.log(response.data);
+          setMessages([...messages, { sender: 'bot', text: response.data.reply } ]);
+      })
+      .catch(error => console.error("Error:", error));
   };
 
   const drawer = (
