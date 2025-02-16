@@ -32,23 +32,27 @@ def insert_document(db_name, collection_name, data):
 def get_documents(db_name, collection_name):
     """Retrieve all documents from a MongoDB collection."""
     db = get_database(db_name)
-    if db:
+    if db is not None:
         collection = db[collection_name]
-        return list(collection.find())
+        documents =  list(collection.find())
+        for doc in documents:
+            doc["_id"] = str(doc["_id"])
+        return documents
     return []
 
 @csrf_exempt  # Disable CSRF for testing (remove this in production)
 def post_json_response(request):
     if request.method == "POST":
+        info = request.body
         try:
             # Parse the incoming JSON request body
             data = json.loads(request.body)
             name = data.get("name", "Guest")
 
             # Fetch documents from MongoDB
-            products = get_documents("Ecom", "products")
+            products = get_documents("Mall", "seller")
 
-            if not products:
+            if products is None:
                 response_data = {
                     "message": "No products found.",
                     "status": "error",
