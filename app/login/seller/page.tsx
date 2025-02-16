@@ -16,6 +16,13 @@ const SellerForm = () => {
   };
 
   const clicked = () => {
+
+    axios
+      .post("http://127.0.0.1:8000/post-json/", { name: "John" })
+      .then((response) => console.log(response.data))
+      .catch((error) => console.error("Error:", error));
+  };
+
     
 
     axios.post("http://127.0.0.1:8000/post-json/", { username : username, password : password, mobileNumber : mobileNumber, gstin : gstin, email : email, shopNumber : shopNumber})
@@ -23,6 +30,7 @@ const SellerForm = () => {
       .catch(error => console.error("Error:", error));
 
   }
+
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-900">
