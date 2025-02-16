@@ -67,6 +67,6 @@ const SellerForm = () => {
       </div>
     </div>
   );
-};
+
 
 export default SellerForm;
