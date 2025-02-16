@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import axios from "axios";
 
 const SellerForm = () => {
@@ -31,6 +31,10 @@ const SellerForm = () => {
 
   }
 
+
+function handleSubmit(event: FormEvent<HTMLFormElement>): void {
+  throw new Error("Function not implemented.");
+}
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-900">
@@ -68,5 +72,5 @@ const SellerForm = () => {
     </div>
   );
 
-
+};
 export default SellerForm;
