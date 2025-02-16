@@ -4,6 +4,7 @@ from pymongo import MongoClient
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from dotenv import load_dotenv
+from .chatbot_development_3 import conversation
 
 # Load environment variables from .env file
 load_dotenv()
@@ -23,7 +24,7 @@ def get_database(db_name):
 def insert_document(db_name, collection_name, data):
     """Insert a document into a MongoDB collection."""
     db = get_database(db_name)
-    if db:
+    if db is not None:
         collection = db[collection_name]
         result = collection.insert_one(data)
         return result.inserted_id
@@ -32,9 +33,12 @@ def insert_document(db_name, collection_name, data):
 def get_documents(db_name, collection_name):
     """Retrieve all documents from a MongoDB collection."""
     db = get_database(db_name)
-    if db:
+    if db is not None:
         collection = db[collection_name]
-        return list(collection.find())
+        documents =  list(collection.find())
+        for doc in documents:
+            doc["_id"] = str(doc["_id"])
+        return documents
     return []
 
 @csrf_exempt  # Disable CSRF for testing (remove this in production)
@@ -46,20 +50,12 @@ def post_json_response(request):
             name = data.get("name", "Guest")
 
             # Fetch documents from MongoDB
-            products = get_documents("Ecom", "products")
+            insert_document("Mall", "seller", data)
 
-            if not products:
-                response_data = {
-                    "message": "No products found.",
-                    "status": "error",
-                    "data": []
-                }
-            else:
-                response_data = {
-                    "message": f"Hello, {name}!",
-                    "status": "success",
-                    "products": products  # Include MongoDB data in the response
-                }
+            response_data = {
+                "message": "Added data",
+                "status": "success",
+            }
         except json.JSONDecodeError:
             response_data = {"error": "Invalid JSON"}
         except Exception as e:
@@ -67,4 +63,18 @@ def post_json_response(request):
 
         return JsonResponse(response_data)
 
+    return JsonResponse({"error": "Only POST requests allowed"}, status=405)
+
+
+
+@csrf_exempt
+def reply(request):
+    if request.method == "POST":
+        try:
+            # Parse the incoming JSON request body
+            data = json.loads(request.body)
+            x = conversation(data["msg"])
+            return JsonResponse({"reply": x})
+        except Exception as e:
+            return JsonResponse({"error": f"Something went wrong: {e}"})
     return JsonResponse({"error": "Only POST requests allowed"}, status=405)
