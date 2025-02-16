@@ -2,40 +2,33 @@
 import { useState } from "react";
 import axios from "axios";
 
-const SellerForm = () => {
+const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [shopNumber, setShopNumber] = useState("");
-  const [gstin, setGstin] = useState("");
-  const [email, setEmail] = useState("");
-  const [mobileNumber, setMobileNumber] = useState("");
+  const [mobileNumber, setMobileNumber] = useState(""); // Mobile Number state
+  const [otp, setOtp] = useState("1234"); // Default OTP
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log({ username, password, shopNumber, gstin, email, mobileNumber });
+    console.log({ username, password, mobileNumber, otp });
+
+    // Make the Axios POST request
+    axios
+      .post("http://127.0.0.1:8000/login/", { username, password, mobileNumber, otp })
+      .then((response) => console.log(response.data))
+      .catch((error) => console.error("Error:", error));
   };
-
-  const clicked = () => {
-    
-
-    axios.post("http://127.0.0.1:8000/post-json/", { username : username, password : password, mobileNumber : mobileNumber, gstin : gstin, email : email, shopNumber : shopNumber})
-      .then(response => console.log(response.data))
-      .catch(error => console.error("Error:", error));
-
-  }
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-900">
       <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md border border-gray-700">
-        <h1 className="text-2xl font-semibold text-center text-white mb-6">Seller Registration</h1>
+        <h1 className="text-2xl font-semibold text-center text-white mb-6">Customer Login</h1>
         <form onSubmit={handleSubmit}>
           {[
             { label: "Username", value: username, setter: setUsername, type: "text" },
             { label: "Password", value: password, setter: setPassword, type: "password" },
-            { label: "Shop Number", value: shopNumber, setter: setShopNumber, type: "text" },
-            { label: "GSTIN", value: gstin, setter: setGstin, type: "text" },
-            { label: "Email", value: email, setter: setEmail, type: "email" },
-            { label: "Mobile Number", value: mobileNumber, setter: setMobileNumber, type: "tel" },
+            { label: "Mobile Number", value: mobileNumber, setter: setMobileNumber, type: "tel" }, // Mobile Number field
+            { label: "OTP", value: otp, setter: setOtp, type: "text" }, // OTP field
           ].map((field, index) => (
             <div key={index} className="mb-4">
               <label className="block text-sm font-medium text-gray-400">{field.label}:</label>
@@ -51,9 +44,8 @@ const SellerForm = () => {
           <button
             type="submit"
             className="w-full bg-orange-600 text-white font-semibold py-2 rounded-md hover:bg-orange-500 transition duration-200 shadow-lg"
-            onClick={clicked}
           >
-            Submit
+            Login
           </button>
         </form>
       </div>
@@ -61,4 +53,4 @@ const SellerForm = () => {
   );
 };
 
-export default SellerForm;
+export default LoginPage;
