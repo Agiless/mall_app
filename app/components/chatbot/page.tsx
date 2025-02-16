@@ -58,12 +58,17 @@ export default function ChatBot(props: Props) {
 
   const sendMessage = () => {
     if (!input.trim()) return;
-    setMessages([...messages, { sender: 'user', text: input }]);
+    //setMessages(messages => [...messages, { sender: 'user', text: input }]);
+    const currentMessage = input;
+
     setInput('');
-    axios.post("http://127.0.0.1:8000/chatbot/", {msg:input})
+
+    setMessages(messages => [...messages, { sender: 'user', text: input }]);
+
+    axios.post("http://127.0.0.1:8000/chatbot/", {msg:currentMessage})
       .then(response => {
-        console.log(response.data);
-          setMessages([...messages, { sender: 'bot', text: response.data.reply } ]);
+        //console.log(response.data);
+          setMessages(messages => [...messages, { sender: 'bot', text: response.data.reply } ]);
       })
       .catch(error => console.error("Error:", error));
   };
@@ -88,7 +93,7 @@ export default function ChatBot(props: Props) {
 
   return (
     <ThemeProvider theme={darkTheme}>
-    <Box sx={{ display: 'flex', height: '100vh' }}>
+    <Box sx={{ display: 'flex', height: '100vh', color:'black' }}>
       <CssBaseline />
       <AppBar position="fixed" sx={{ width: { sm: `calc(100% - ${drawerWidth}px)` }, ml: { sm: `${drawerWidth}px` } }}>
         <Toolbar>
@@ -112,15 +117,36 @@ export default function ChatBot(props: Props) {
         <Box sx={{ flexGrow: 1, overflowY: 'auto', p: 2  }}>
           {messages.map((msg, index) => (
             <Box key={index} sx={{ display: 'flex', justifyContent: msg.sender === 'user' ? 'flex-end' : 'flex-start', mb: 2 }}>
-              <Typography sx={{ p: 1, bgcolor: msg.sender === 'user' ? 'primary.light' : 'grey.300', borderRadius: 1, maxWidth: '75%' }}>
+              <Typography sx={{ p: 1, bgcolor: msg.sender === 'user' ? 'lightblue' : 'grey.600', borderRadius: 1, maxWidth: '75%' }}>
                 {msg.text}
               </Typography>
             </Box>
           ))}
         </Box>
-        <Box sx={{ display: 'flex', p: 2, borderTop: '1px solid grey' }}>
-          <TextField fullWidth variant="outlined" value={input} onChange={(e) => setInput(e.target.value)} placeholder="Type your message..." />
-          <Button onClick={sendMessage} sx={{ ml: 1 }} variant="contained">
+        <Box sx={{ display: 'flex', p: 2, borderTop: '1px solid grey', alignItems:'baseline' }}>
+          <TextField 
+        fullWidth
+          variant="outlined" 
+          value={input} 
+          onChange={(e) => setInput(e.target.value)} 
+          placeholder="Type your message..."
+          onKeyDown={(e) => {if(e.key === 'Enter' && !e.shiftKey){
+            sendMessage()
+          }            
+            }
+        }
+        multiline
+        minRows={0}
+        maxRows={4}
+        sx={{
+          flexGrow: 1,
+          overflow: 'auto',
+        }}
+        />
+            
+          <Button className='absolute bottom-0' onClick={sendMessage} 
+          sx={{ ml: 1, minWidth: '50px', height: '50px' }} 
+          variant="contained">
             <SendIcon />
           </Button>
         </Box>
