@@ -50,15 +50,10 @@ app = workflow.compile(checkpointer=memory)
 config = {'configurable':{'thread_id':'mirun8'}}
 
 #implementing conversation
-flag = True
-while flag:
-    query = input("User: ")
-    if query == "exit" or query == "end":
-        flag = False
-        break
-
+def conversation(query):
     input_messages = [HumanMessage(query)]
     output = app.invoke({"messages":input_messages},config)
     output["messages"][-1].pretty_print()
-    
+    print(output["messages"][-1])
+    return output["messages"][-1].content
 #prompt template
